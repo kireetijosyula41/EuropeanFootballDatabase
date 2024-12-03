@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Soccer Database: Player Page </title>
+        <style>
+            .center-text {
+                text-align: center;
+            }
+            .form-inline {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+        </style>
+</head>
+<body>
+    <div class="center-text">
+    <h1>Player Search</h1>
+        <p>Search a Player Name HERE to get stats and information!</p>
+        <form action ="/playerpage" method="POST">
+            <div class="form-inline">
+            <label for="name">Player Name:</label>
+            <input type="text" id="name" name="name">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+        {% if player_data %}
+        <div class="player-container">
+            {% if player_data.image_url %}
+            <img src="{{ player_data.image_url }}" alt="Player Image" class="player-image">
+            {% endif %}
+            <h2>Player Information</h2>
+            <p><strong>Name:</strong> {{ player_data.get('Names', 'N/A') }}</p>
+            <p><strong>Age:</strong> {{ player_data.get('Age', 'N/A') }}</p>
+            <p><strong>Team:</strong> {{ player_data.get('Team', 'N/A') }}</p>
+            <p><strong>Position:</strong> {{ player_data.get('Position', 'N/A') }}</p>
+            <p><strong>Nation:</strong>{{ player_data['Nationality'] }}</p>
+            <p><strong>Market Value:</strong> {{ player_data['Market Value (In Millions)'] }}</p>
+            <p><strong>League:</strong> {{ player_data['League'] }}</p>
+        </div>
+        {% elif error %}
+            <p style="color: red;">{{ error }}</p>
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

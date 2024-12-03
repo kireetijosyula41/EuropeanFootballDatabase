@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Soccer Database: Home Page </title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #1c2e93;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0026b6;
+        }
+        .center-text {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-text">
+    <h1>Soccer Database</h1>
+        <p>Welcome to the Soccer Player Stats API for Europe's Top 5 Leagues!</p>
+        <p>Click on any of the following buttons to access Players, Managers or Teams!</p>
+        <a href="/playerpage" class="button">Player Database</a>
+        <a href="/managerpage" class="button">Manager Database</a>
+        <a href="/teampage" class="button">Team Database</a>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 100px;">
+        <div>
+            <img src="{{url_for('static', filename='images/MessiImageHeader.jpg')}}"
+             alt="Messi" style="width: 300px; height: auto;">
+        </div>
+        <div>
+            <img src="{{url_for('static', filename='images/Top5Leagues.jpg')}}"
+             alt="LeagueImage" style="width: 300px; height: auto;">
+        </div>
+        <div>
+            <img src="{{url_for('static', filename='images/RonaldoImageHeader.jpg')}}"
+             alt="Ronaldo" style="width: 300px; height: auto;">
+        </div>
+    </div>
+</body>
+</html>
