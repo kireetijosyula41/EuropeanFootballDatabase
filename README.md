@@ -1,5 +1,12 @@
 # intermediatepython-finalproj-kireetijosyula41
 
+PLEASE NOTE: IN ORDER TO RUN THE APP BY CLONING THE REPOSITORY, PLEASE DO THE FOLLOWING ON THE TERMINAL TO USE THE APP: 
+1. If you are running on conda, run "conda deactivate"
+2. Run "python3 -m venv venv"
+3. Run "source venv/bin/activate"
+4. Run "pip install -r requirements.txt" --> This will install the necessary dependencies for running the app
+5. Then you can run "flask --app main run". Thank you!
+
 Section 1: Project Proposals 
 
 Project idea #1: 
