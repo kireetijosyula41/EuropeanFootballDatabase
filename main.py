@@ -133,10 +133,10 @@ def team_search():
         team_name = None
     if team_name:
         team_row = team_df[team_df['Squad'].str.lower() == team_name.lower()]
-        player_list = players_df[players_df['Team'].str.lower() == team_name.lower()]
-        opp_row = team_df[team_df['Squad'].str.lower() == team_row['Opponent'].iloc()[0].lower()]
-        main_keys = ['Squad', 'MP', 'W', 'D', 'L', 'GF', 'GA', 'Last 5']
-        if not team_row.empty and not opp_row.empty:
+        if not team_row.empty:
+            player_list = players_df[players_df['Team'].str.lower() == team_name.lower()]
+            opp_row = team_df[team_df['Squad'].str.lower() == team_row['Opponent'].iloc()[0].lower()]
+            main_keys = ['Squad', 'MP', 'W', 'D', 'L', 'GF', 'GA', 'Last 5']
             team_data = team_row.to_dict(orient="records")[0]
             main_data = {k: team_row.iloc[0][k] for k in main_keys if k in team_row.columns}
             opp_data = {k: opp_row.iloc[0][k] for k in main_keys if k in opp_row.columns}
