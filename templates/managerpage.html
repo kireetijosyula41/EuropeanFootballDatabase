@@ -5,19 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Soccer Database: Manager Page </title>
         <style>
+            body {
+                background-color: #f0f8ff;
+                margin: 0;
+            }
+            table {
+                border: 1px solid black;
+                border-collapse: collapse;
+                width: 50%;
+            }
+            th {
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px;
+            }
+            td {
+                border: 1px solid black;
+                font-size: 12px;
+                border-collapse: collapse;
+                padding: 5px;
+            }
             .center-text {
                 text-align: center;
+            }
+            .form-inline {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+            .container {
+                max-width: 1200px;
+                background: #f0f8ff;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                border: 2px solid #000;
+                border-radius: 10px;
+                margin: 20px auto;
+            }
+            .manager-image,
+            .team-image,
+            .manager-info {
+                text-align: center;
+                padding: 10px;
+            }
+            .table-container {
+                display: flex;
+                justify-content: center;
+                padding: 20px;
+            }
+            .manager-table {
+                margin: 50 auto;
+                background-color: #fffacd;
+                width: 60%;
+                border-collapse: collapse;
+            }
+            .manager-table th {
+                background-color: #fdd835;
+            }
+            .manager-table th, .manager-table td {
+                padding: 10px;
+                text-align: center;
+                border: 1px solid black;
             }
         </style>
 </head>
 <body>
+    <a href="/" class="button">Back To Main</a>
     <div class="center-text">
     <h1>Manager Search</h1>
         <p>Search a Manager Name HERE to get their history and other information!</p>
-        <form action="/action_page.php" target = "_blank">
-            <label for="name">Manager Name:</label><br>
-            <input type="text" id="name" name="name" value=""><br>
+        <form action="/managerpage" method = "POST">
+            <div class="form-inline">
+                <label for="name">Manager Name:</label><br>
+                <input type="text" id="name" name="name"><br>
+                <button type="submit">Search</button>
+            </div>
         </form>
     </div>
+    {% if manager_data %}
+<div class="container">
+    <div class="manager-image">
+        <h2>{{ manager_data['Names'] }} Picture</h2>
+        <img src="{{ manager_data['Manager Profile'] }}" alt="{{ manager_data['Names'] }}">
+    </div>
+    <div class="team-image">
+        <h2>{{ manager_data['Team'] }} Badge</h2>
+        <img src="{{ manager_data['Team Logo Link'] }}" alt="{{ manager_data['Team'] }}">
+    </div>
+    <div class="manager-info">
+        <h2>Manager Information</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Team</th>
+                    <th>Nationality</th>
+                    <th>Contract Expiry</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ manager_data['Names'] }}</td>
+                    <td>{{ manager_data['Age'] }}</td>
+                    <td>{{ manager_data['Team'] }}</td>
+                    <td>{{ manager_data['Nationality'] }}</td>
+                    <td>{{ manager_data['Contract Expiration'] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <div class="center-text">
+        <h2> Managerial History: </h2>
+    </div>
+<div class="table-container">
+    <table class="manager-table">
+        <thead>
+            <th>Team Managed:</th>
+            <th>Start Date:</th>
+            <th>End Date:</th>
+        </thead>
+        <tbody>
+            {% for data in manager_data['History'] %}
+                <tr>
+                {% for item in data %}
+                    <td> {{ item }}</td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    {% elif error %}
+    <p style="color: red;">{{ error }}</p>
+    {% else %}
+    <p></p>
+    {% endif %}
 </body>
 </html>

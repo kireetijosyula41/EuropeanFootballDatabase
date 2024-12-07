@@ -5,19 +5,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Soccer Database: Team Page </title>
         <style>
+            body {
+                background-color: #f0f8ff;
+                margin: 0;
+            }
+            table {
+                border: 1px solid black;
+                border-collapse: collapse;
+                width: 90%;
+            }
+            th {
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px;
+            }
+            td {
+                border: 1px solid black;
+                font-size: 15px;
+                border-collapse: collapse;
+                padding: 5px;
+            }
             .center-text {
+                text-align: center;
+            }
+            .container {
+                display: grid;
+                grid-template-areas:
+                "team-logo league-logo team-info player-table"
+                "team-logo league-logo team-stats player-table";
+                grid-template-columns: 1fr 1fr 2fr 1fr;
+                grid-template-rows: auto auto auto auto;
+                gap: 10px;
+                padding: 20px;
+            }
+            .team-logo {
+                grid-area: team-logo;
+            }
+            .league-logo {
+                grid-area: league-logo;
+            }
+            .team-info {
+                grid-area: team-info;
+            }
+            .team-stats {
+                grid-area: team-stats;
+            }
+            .player-table {
+                grid-area: player-table;
+                max-height: 400px;
+                overflow-y: auto;
+                border: 1px solid #ccc;
+                align-items: center;
+            }
+            .match-container {
+                border: 2px solid black;
+                display: grid;
+                grid-template-areas: "teamA probabilities teamB";
+                grid-template-columns: 1fr 1fr 1fr;
+                padding: 20px;
+                align-items: center;
+                justify-items: center;
                 text-align: center;
             }
         </style>
 </head>
 <body>
-    <div class="center-text">
+    <a href="/" class="button">Back To Main</a>
+   <div class="center-text">
     <h1>Team Search</h1>
-        <p>Search a Team Name HERE to get their information and matches!</p>
-        <form action="/action_page.php" target = "_blank">
-            <label for="name">Team Name:</label><br>
-            <input type="text" id="name" name="name" value=""><br>
+        <p>Search for a Team HERE to get information for this season!</p>
+        <form action ="/teampage" method="POST">
+            <div class="form-inline">
+            <label for="name">Team Name:</label>
+            <input type="text" id="name" name="name">
+                <button type="submit">Search</button>
+            </div>
         </form>
     </div>
+    {% if team_data %}
+    <div class="container">
+        <div class="team-logo">
+            <h2> {{ team_data['Squad'] }} Logo: </h2>
+            <img src="{{ team_data['Team Logo Link'] }}" alt="{{ team_data['Squad'] }}" />
+        </div>
+        <div class="league-logo">
+            <h2> League Logo: </h2>
+            <img src="{{ team_data['League Logo Link'] }}" alt = "League Logo" />
+        </div>
+        <div class="team-info">
+            <h1> Team Information: </h1>
+            <table>
+                <thead>
+                    <th>Team Name:</th>
+                    <th>Size:</th>
+                    <th>Average Age:</th>
+                    <th>Foreign players:</th>
+                    <th>National Team Players:</th>
+                    <th>Stadium:</th>
+                    <th>Capacity:</th>
+                    <th>Form:</th>
+                </thead>
+                <tbody>
+                    <td>{{ team_data['Squad'] }}</td>
+                    <td>{{ team_data['Squad size'] }}</td>
+                    <td>{{ team_data['Average age'] }}</td>
+                    <td>{{ team_data['Foreign Players'] }}</td>
+                    <td>{{ team_data['National Team Players'] }}</td>
+                    <td>{{ team_data['Stadium Name'] }}</td>
+                    <td>{{ team_data['Stadium Capacity'] }}</td>
+                    <td>{{ team_data['Last 5'] }}</td>
+                </tbody>
+            </table>
+            <h2> Team League Stats (2024-2025 Season) </h2>
+            <table>
+                <thead>
+                    <th>Matches Played</th>
+                    <th>Wins:</th>
+                    <th>Draws:</th>
+                    <th>Losses:</th>
+                    <th>Goals Scored:</th>
+                    <th>Goals Conceded:</th>
+                    <th>Points</th>
+                    <th>Attendance</th>
+                </thead>
+                <tbody>
+                    <td>{{ team_data['MP'] }}</td>
+                    <td>{{ team_data['W'] }}</td>
+                    <td>{{ team_data['D'] }}</td>
+                    <td>{{ team_data['L'] }}</td>
+                    <td>{{ team_data['GF'] }}</td>
+                    <td>{{ team_data['GA'] }}</td>
+                    <td>{{ team_data['Pts'] }}</td>
+                    <td>{{ team_data['Attendance'] }}</td>
+                </tbody>
+            </table>
+        </div>
+        <div class="player-table">
+            <h2>{{ team_data['Squad'] }} Players: </h2>
+            <table>
+                <thead>
+                    <th>Player:</th>
+                    <th>Link:</th>
+                </thead>
+                <tbody>
+                    {% for i in team_data['Player List'] %}
+                    <tr>
+                        <td> {{ i }} </td>
+                        <td>
+                            <form action="/playerpage" method="GET" style="text-align: left">
+                                <input type="hidden" name="player_name" value="{{ i }}" />
+                                <button type="submit"> {{ i }} Player Profile </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+    <h2> Next Match: </h2>
+    <div class="match-container">
+        <div class="teamA">
+            <p><strong>{{ team_data['Squad'] }} </strong></p>
+            <img src="{{ team_data['Team Logo Link'] }}" alt="{{ team_data['Squad'] }}" />
+        </div>
+        <div class="probabilities">
+            <p><strong>{{ team_data['Squad'] }} Win: </strong>{{ team_data['Team Win'] }}</p>
+            <p><strong>Draw: </strong>{{ team_data['Draw'] }}</p>
+            <p><strong>{{ team_data['Opponent'] }} Win: </strong>{{ team_data['Team Loss'] }}</p>
+        </div>
+        <div class="teamB">
+            <p><strong>{{ team_data['Opponent'] }} </strong></p>
+            <img src="{{ team_data['Opponent Logo Link'] }}" alt="{{ team_data['Opponent'] }}" />
+        </div>
+    </div>
+    {% elif error %}
+    <p style="color: red;">{{ error }}</p>
+    {% else %}
+    <p></p>
+    {% endif %}
 </body>
 </html>
