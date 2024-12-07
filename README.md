@@ -21,9 +21,9 @@ I would maybe want to develop a European football player performance analysis AP
 
 Section 2: Project Timeline 
 
-By the end of week 4, I will have looked into possible soccer database references (FBref, FiveThirtyEight, Sofascore) that can give me access to player data such as names, clubs, goals, assists, nationalities, positions, as well as matches
+By the end of week 4, I will have looked into possible soccer database references that can give me access to player data such as names, clubs, goals, assists, nationalities, positions, as well as matches. I will try to search for alternatives if I cannot find any good open source material.
 By the end of week 5, I will try to have a setup for the homescreen, where a person can query a specific team or player
-By the end of week 6, I will work on the implementation of the team, which will return the team's last 10 matches, their current form, their players and kit numbers, and their upcoming matches with appropriate times.
-By the end of week 7, I will work on the implementation of the players. When a player is queried, I will have the player name, nationality, position, and team displayed. From there, if the user wants more information (injury history, goals, assists, etc.), they can access through clickable links. 
-By the end of week 8, I will have a "ratings" scheme down for players in a particular match, so that a user can click on a player from a match, and give the player a rating from 1 to 10 (float1 number). 
-By the end of week 9, I try to have the percentile performance of players on certain stats (goals scored, assists made, passes completed, defensive actions), displayed on the player's home page. This will be relevant for the current season. 
+By the end of week 6, I will work on the implementation of the team, which will return the team's last match results, their current form, their players, and their upcoming matches, along with other information
+By the end of week 7, I will work on the implementation of the players. When a player is queried, I will have the player name, nationality, position, and team displayed. From there, I will also provide information on their injury history, current season stats. 
+By the end of week 8, I will have a "ratings" scheme down for players in a particular match, so that a user can click on a player from a match, and give the player a rating from 1 to 5 (float1 number). 
+By the end of week 9, I will have a manager implementation down, where when a manager is queried, I will try to return the manager name, the manager personal information, and the manager's previous managerial history.
