@@ -1,4 +1,4 @@
-# intermediatepython-finalproj-kireetijosyula41
+# EuropeanFootballDatabase
 
 PLEASE NOTE: IN ORDER TO RUN THE APP BY CLONING THE REPOSITORY, PLEASE DO THE FOLLOWING ON THE TERMINAL TO USE THE APP: 
 1. If you are running on conda, run "conda deactivate"
